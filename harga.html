@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rumah Makan Amak</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Feather Icons  -->
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+
+    <!-- My Style  -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- Navbar start -->
+    <nav class="navbar">
+      <a href="#" class="navbar-logo">ampera<span>amak</span>.</a>
+
+      <div class="navbar-nav">
+        <a href="#home">Beranda</a>
+        <a href="#about">Tentang Kami</a>
+        <a href="#menu">Menu</a>
+        <a href="#contact">Kontak</a>
+      </div>
+
+      <div class="navbar-extra">
+        <a href="#" id="search"><i data-feather="search"></i></a>
+        <a href="#" id="shopping-cart"><i data-feather="shopping-cart"></i></a>
+        <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
+      </div>
+    </nav>
+    <!-- Navbar end -->
+
+    <!-- Hero Section Start -->
+    <section class="Hero" id="home">
+      <main class="content">
+        <h1>Masakan Kampung Khas Sungai Geringging</h1>
+        <p>
+          Masakan Kampung Dengan Cita Rasa dan Kenimakatan yang Tak Tertandingi
+        </p>
+      </main>
+    </section>
+    <!-- Hero Section End -->
+
+    <!-- Menu Section Start -->
+    <section id="menu">
+      <h2>Menu Kami</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Menu</th>
+            <th>Harga</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Nasi Goreng</td>
+            <td>Rp 20,000</td>
+          </tr>
+          <tr>
+            <td>Mie Goreng</td>
+            <td>Rp 18,000</td>
+          </tr>
+          <tr>
+            <td>Ayam Bakar</td>
+            <td>Rp 25,000</td>
+          </tr>
+          <tr>
+            <td>Rendang</td>
+            <td>Rp 30,000</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <!-- Menu Section End -->
+
+    <!-- Order Form Section Start -->
+    <section id="order">
+      <div class="order-container">
+        <h2>Form Pemesanan</h2>
+        <form id="order-form">
+          <label for="menu-item">Pilih Menu:</label>
+          <select id="menu-item" name="menu-item">
+            <option value="Nasi Goreng" data-price="20000">Nasi Goreng</option>
+            <option value="Mie Goreng" data-price="18000">Mie Goreng</option>
+            <option value="Ayam Bakar" data-price="25000">Ayam Bakar</option>
+            <option value="Rendang" data-price="30000">Rendang</option>
+          </select>
+
+          <label for="quantity">Jumlah:</label>
+          <input
+            type="number"
+            id="quantity"
+            name="quantity"
+            min="1"
+            value="1"
+          />
+
+          <button type="button" onclick="addOrder()">Tambah Pesanan</button>
+        </form>
+
+        <div id="order-summary">
+          <h2>Ringkasan Pesanan</h2>
+          <table id="order-table">
+            <thead>
+              <tr>
+                <th>Menu</th>
+                <th>Jumlah</th>
+                <th>Harga</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+          <h3>Total Pembayaran: Rp <span id="total-payment">0</span></h3>
+        </div>
+      </div>
+    </section>
+    <!-- Order Form Section End -->
+
+    <!-- Feather Icons -->
+    <script>
+      feather.replace();
+
+      let totalPayment = 0;
+
+      function addOrder() {
+        const menuItem = document.getElementById("menu-item");
+        const selectedOption = menuItem.options[menuItem.selectedIndex];
+        const itemName = selectedOption.value;
+        const itemPrice = parseInt(selectedOption.getAttribute("data-price"));
+        const quantity = parseInt(document.getElementById("quantity").value);
+        const itemTotal = itemPrice * quantity;
+
+        const orderTable = document
+          .getElementById("order-table")
+          .getElementsByTagName("tbody")[0];
+        const newRow = orderTable.insertRow();
+
+        const cell1 = newRow.insertCell(0);
+        const cell2 = newRow.insertCell(1);
+        const cell3 = newRow.insertCell(2);
+        const cell4 = newRow.insertCell(3);
+
+        cell1.innerHTML = itemName;
+        cell2.innerHTML = quantity;
+        cell3.innerHTML = "Rp " + itemPrice;
+        cell4.innerHTML = "Rp " + itemTotal;
+
+        totalPayment += itemTotal;
+        document.getElementById("total-payment").innerText = totalPayment;
+      }
+    </script>
+  </body>
+</html>
